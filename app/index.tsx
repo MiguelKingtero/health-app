@@ -1,4 +1,4 @@
-import LoginScreen from "@/src/styles/LoginScreen";
+import LoginScreen from "@/src/layouts/LoginScreen";
 
 
 export default function Index() {
