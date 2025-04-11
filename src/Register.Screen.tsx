@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {supabase} from"../supabaseClient";
+import {supabase} from "./layouts/supabaseClient";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 
 export default function RegisterScreen({ onClose }: any) {
