@@ -3,6 +3,47 @@ import {supabase} from "./layouts/supabaseClient";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 
 export default function RegisterScreen({ onClose }: any) {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [fullname, setFullName] = useState("");
+    const [mobilephone, setMobilePhone] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    
+    const handleRegister = async () => {
+        setLoading(true);
+        setErrorMessage("");
+
+        const { data, error } = await supabase.auth.signUp({
+            email, 
+            password
+        });
+
+        if(error) {
+            setErrorMessage(error.message);
+            setLoading(false);
+            return;
+        }
+
+        //Insert data into Supabase table
+        const { error: InsertError } = await supabase.from("users").insert([
+            { 
+                email: email, 
+                password: password,
+                fullname: fullname,
+                mobile_phone: mobilephone
+            }
+        ]);
+
+        setLoading(false);
+        if (InsertError) {
+            setErrorMessage(InsertError.message);
+        } else {
+            alert("User has been created successfully");
+            onClose();
+        }
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Sign up</Text>
@@ -72,4 +113,3 @@ const styles = StyleSheet.create({
         textDecorationLine: "underline"
     },
 });
-
