@@ -19,6 +19,5 @@ export default function SplashScreen() {
     }
 <View>
             <Image source={require("../assets/logo.png")} />
-        </View>
-          );
+        </View>;
         }
